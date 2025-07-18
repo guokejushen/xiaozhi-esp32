@@ -215,6 +215,8 @@ elseif(CONFIG_BOARD_TYPE_LABPLUS_LEDONG_V2)
     set(BOARD_TYPE "labplus-ledong-v2") 
 elseif(CONFIG_BOARD_TYPE_SURFER_C3_1_14TFT)
     set(BOARD_TYPE "surfer-c3-1.14tft")
+elseif(CONFIG_BOARD_TYPE_LC_S3_WIFI_1_54TFT)
+    set(BOARD_TYPE "lc-s3-wifi-1.54tft")
 endif()
 file(GLOB BOARD_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/boards/${BOARD_TYPE}/*.cc
