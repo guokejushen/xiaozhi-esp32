@@ -17,6 +17,8 @@
 #include <driver/i2c_master.h>
 #include <driver/spi_common.h>
 
+#include "otto_emoji_display.h"
+
 #define TAG "lc-s3-wifi-1.54tft"
 
 LV_FONT_DECLARE(font_puhui_20_4);
@@ -143,13 +145,21 @@ private:
         esp_lcd_panel_init(panel);
         esp_lcd_panel_invert_color(panel, true);
         esp_lcd_panel_disp_on_off(panel, true);
-        display_ = new SpiLcdDisplay(panel_io, panel,
-                                    DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY,
-                                    {
-                                        .text_font = &font_puhui_20_4,
-                                        .icon_font = &font_awesome_20_4,
-                                        .emoji_font = font_emoji_64_init(),
-                                    });
+        // display_ = new SpiLcdDisplay(panel_io, panel,
+        //                             DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY,
+        //                             {
+        //                                 .text_font = &font_puhui_20_4,
+        //                                 .icon_font = &font_awesome_20_4,
+        //                                 .emoji_font = font_emoji_64_init(),
+        //                             });
+        display_ = new OttoEmojiDisplay(
+            panel_io, panel, DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y,
+            DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY,
+            {
+                .text_font = &font_puhui_20_4,
+                .icon_font = &font_awesome_20_4,
+                .emoji_font = DISPLAY_HEIGHT >= 240 ? font_emoji_64_init() : font_emoji_32_init(),
+            });
     }
 
     // 物联网初始化，添加对 AI 可见设备

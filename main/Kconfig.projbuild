@@ -306,6 +306,8 @@ choice BOARD_TYPE
     config BOARD_TYPE_LC_S3_WIFI_1_54TFT
         bool "LC-S3-WIFI-1.54TFT开发板"
         depends on IDF_TARGET_ESP32S3
+        select LV_USE_GIF
+        select LV_GIF_CACHE_DECODE_DATA
 endchoice
 
 choice ESP_S3_LCD_EV_Board_Version_TYPE
